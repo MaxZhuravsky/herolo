@@ -12,6 +12,7 @@
   <tr *ngFor="let item of books; let i = index" >
     <td style="width: 85%" ><app-book-item [book]="item" [index]="i"></app-book-item></td>
     <td ><button class="btn btn-info" (click)="openModal(i)"> Edit</button></td>
+    <td ><button class="btn btn-info" (click)="test(item)"> test</button></td>
   </tr>
   </tbody>
 </table>

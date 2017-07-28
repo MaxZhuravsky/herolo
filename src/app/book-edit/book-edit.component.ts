@@ -8,7 +8,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
   selector: 'app-book-edit',
   template: `
     <div class="modal-header">
-      <h4 class="modal-title pull-left">{{book?.title || 'hello'}}</h4>
+      <h4 class="modal-title pull-left">{{book?.title | nonasci | capitalize: true}}</h4>
 
     </div>
     <div class="modal-body">
@@ -23,6 +23,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 export class BookEditComponent implements OnInit {
   public book: Book;
   public index: number;
+  public s: string;
   form: FormGroup;
   constructor(private bookService: BookService, private fb: FormBuilder, public bsModalRef: BsModalRef,
               private cd: ChangeDetectorRef) { }
@@ -35,7 +36,8 @@ export class BookEditComponent implements OnInit {
       title: ['', Validators.required],
       date: ['', Validators.required],
       author: ['', Validators.required]
-    })
+    });
+    //this.s.replace(/[^\x00-\x7F]/g, '')
   }
   updateBook() {
 

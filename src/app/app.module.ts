@@ -12,8 +12,10 @@ import { HttpModule } from '@angular/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BookService } from './services/book.service';
 import { BookResolver } from './services/BookResolver';
-import { ModalModule } from 'ngx-bootstrap';
+import { DatepickerModule, ModalModule } from 'ngx-bootstrap';
 import { BookEditComponent } from './book-edit/book-edit.component';
+import { NgStringPipesModule } from 'angular-pipes';
+import { NonAsciPipe } from './pipes/non-asci.pipe';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { BookEditComponent } from './book-edit/book-edit.component';
     BookListComponent,
     BookItemComponent,
     BooksComponent,
-    BookEditComponent
+    BookEditComponent,
+    NonAsciPipe
   ],
   entryComponents: [
     BookEditComponent
@@ -33,7 +36,9 @@ import { BookEditComponent } from './book-edit/book-edit.component';
     HttpModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    DatepickerModule.forRoot(),
+    NgStringPipesModule
   ],
   providers: [BookService, BookResolver],
   bootstrap: [AppComponent]

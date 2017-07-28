@@ -30,7 +30,14 @@ export class BookListComponent implements OnInit, OnDestroy {
     component.index = index;
     component.flush();
   }
-
+  test(book: Book) {
+    let ascii = /^[A-Za-z0-9 ]*$/;
+    if (!ascii.test(book.title)) {
+      console.log('found non asci')
+    }
+     book.title = book.title.replace(/[^a-zA-Z0-9 ]/g, '');
+    console.log(book.title);
+  }
 
   ngOnDestroy(): void {
     this.booksSubscription.unsubscribe();
