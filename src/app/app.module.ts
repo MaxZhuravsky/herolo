@@ -10,6 +10,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BookService } from './services/book.service';
+import { BookResolver } from './services/BookResolver';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [BookService, BookResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
