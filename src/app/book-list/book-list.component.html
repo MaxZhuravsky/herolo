@@ -1,3 +1,17 @@
-<p>
-  book-list works!
-</p>
+
+<table class="table table-bordered">
+    <tr *ngFor="let item of books; let i = index" >
+
+    </tr>
+  <thead>
+  <tr>
+    <th >Books</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of books; let i = index" >
+    <td style="width: 85%" ><app-book-item [book]="item" [index]="i"></app-book-item></td>
+    <td ><button> test</button></td>
+  </tr>
+  </tbody>
+</table>

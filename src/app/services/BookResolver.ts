@@ -9,6 +9,7 @@ export class BookResolver implements  Resolve<Book[]> {
 
   constructor(private bookService: BookService) {}
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Book[]> | Promise<Book[]> | Book[] {
+    console.log('book resolver');
     return this.bookService.fetchBooks();
   }
 }
