@@ -12,6 +12,8 @@ import { HttpModule } from '@angular/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BookService } from './services/book.service';
 import { BookResolver } from './services/BookResolver';
+import { ModalModule } from 'ngx-bootstrap';
+import { BookEditComponent } from './book-edit/book-edit.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,11 @@ import { BookResolver } from './services/BookResolver';
     HeaderComponent,
     BookListComponent,
     BookItemComponent,
-    BooksComponent
+    BooksComponent,
+    BookEditComponent
+  ],
+  entryComponents: [
+    BookEditComponent
   ],
   imports: [
     BrowserModule,
@@ -27,6 +33,7 @@ import { BookResolver } from './services/BookResolver';
     HttpModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    ModalModule.forRoot()
   ],
   providers: [BookService, BookResolver],
   bootstrap: [AppComponent]
