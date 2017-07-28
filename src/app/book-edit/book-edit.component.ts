@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Book } from '../models/Book';
 import { BookService } from '../services/book.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { CustomValidators } from 'ng2-validation';
 import { NonAsciPipe } from '../pipes/non-asci.pipe';
@@ -60,7 +60,7 @@ import { CapitalizePipe } from 'angular-pipes/src/string/capitalize.pipe';
 export class BookEditComponent implements OnInit {
   public book: Book;
   public index: number;
-  public s: string;
+  public addMode = false;
   form: FormGroup;
   constructor(private bookService: BookService, private fb: FormBuilder, public bsModalRef: BsModalRef,
               private cd: ChangeDetectorRef) { }
@@ -99,6 +99,13 @@ export class BookEditComponent implements OnInit {
     return this.form.controls[controlName].errors &&
       (this.form.controls[controlName].dirty || this.form.controls[controlName].touched)
   }
+  forbiddenTitles(control: FormControl): { [s: string]: boolean} {
+      if (this.bookService.TitlExist(control.value)) {
+
+      }
+
+    }
+
 
   flush() {
     this.book.title = new NonAsciPipe().transform(this.book.title);

@@ -42,6 +42,16 @@ export class BookService {
     return Observable.throw(errMsg);
   }
 
+  TitlExist(title: string) {
+    const books = this.BookSource;
+    for (let i = 0 ; i < books.length; i++) {
+      if (books[i].title === title) {
+        return true
+      }
+    }
+      return false;
+  }
+
   updateBookValues(book: Book, index: number) {
     const books = this.BookSource;
     books[index] = book;
