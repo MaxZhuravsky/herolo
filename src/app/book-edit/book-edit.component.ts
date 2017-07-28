@@ -58,7 +58,7 @@ import { CapitalizePipe } from 'angular-pipes/src/string/capitalize.pipe';
 
     </div>
   `,
-  styleUrls: ['./book-edit.component.css']
+
 })
 export class BookEditComponent implements OnInit {
   public book: Book;

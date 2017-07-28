@@ -4,6 +4,8 @@ import { Book } from '../models/Book';
 import { BookService } from '../services/book.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { BookEditComponent } from '../book-edit/book-edit.component';
+import { DialogService } from 'ng2-bootstrap-modal';
+import { ConfirmComponent } from '../confirm/confirm.component';
 
 @Component({
   selector: 'app-book-list',
@@ -16,7 +18,8 @@ export class BookListComponent implements OnInit, OnDestroy {
   public alerts: any = [];
   private isUpdated;
   private booksSubscription: Subscription;
-  constructor(private bookService: BookService, private modalService: BsModalService) { }
+  constructor(private bookService: BookService, private modalService: BsModalService,
+              private dialogService: DialogService) { }
 
   ngOnInit() {
     this.isUpdated = false;
@@ -26,7 +29,7 @@ export class BookListComponent implements OnInit, OnDestroy {
   onBooksUpdate(books: Book[]) {
     this.books = books;
     if (this.isUpdated) {
-      this.add();
+      this.addAlert();
     }
     this.isUpdated = true;
   }
@@ -46,12 +49,21 @@ export class BookListComponent implements OnInit, OnDestroy {
     console.log(book.title);
   }
 
-  public add(): void {
+  public addAlert(): void {
     this.alerts.push({
       type: 'info',
       msg: `Book updated successfully`,
       timeout: 3000
     });
+  }
+  remove(index: number) {
+    this.dialogService.addDialog(ConfirmComponent, {})
+      .subscribe((isConfirmed) => {
+        // We get dialog result
+        if (isConfirmed) {
+          this.bookService.remove(index);
+        }
+      });
   }
 
   ngOnDestroy(): void {

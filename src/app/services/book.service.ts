@@ -51,7 +51,11 @@ export class BookService {
     }
       return false;
   }
-
+  remove(index: number) {
+    const books = this.BookSource;
+    books.splice(index, 1);
+    this.updateBooks(books);
+  }
   updateBookValues(book: Book, index: number) {
     const books = this.BookSource;
     books[index] = book;

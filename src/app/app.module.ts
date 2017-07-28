@@ -16,6 +16,8 @@ import { AlertModule, DatepickerModule, ModalModule } from 'ngx-bootstrap';
 import { BookEditComponent } from './book-edit/book-edit.component';
 import { NgStringPipesModule } from 'angular-pipes';
 import { NonAsciPipe } from './pipes/non-asci.pipe';
+import { BootstrapModalModule } from 'ng2-bootstrap-modal';
+import { ConfirmComponent } from './confirm/confirm.component';
 
 @NgModule({
   declarations: [
@@ -25,10 +27,12 @@ import { NonAsciPipe } from './pipes/non-asci.pipe';
     BookItemComponent,
     BooksComponent,
     BookEditComponent,
-    NonAsciPipe
+    NonAsciPipe,
+    ConfirmComponent
   ],
   entryComponents: [
-    BookEditComponent
+    BookEditComponent,
+    ConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +44,7 @@ import { NonAsciPipe } from './pipes/non-asci.pipe';
     DatepickerModule.forRoot(),
     NgStringPipesModule,
     AlertModule.forRoot(),
+    BootstrapModalModule
   ],
   providers: [BookService, BookResolver],
   bootstrap: [AppComponent]
