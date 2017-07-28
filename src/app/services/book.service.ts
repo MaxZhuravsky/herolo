@@ -41,4 +41,10 @@ export class BookService {
     console.error(errMsg);
     return Observable.throw(errMsg);
   }
+
+  updateBookValues(book: Book, index: number) {
+    const books = this.BookSource;
+    books[index] = book;
+    this.updateBooks(books);
+  }
 }

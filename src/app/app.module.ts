@@ -12,7 +12,7 @@ import { HttpModule } from '@angular/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BookService } from './services/book.service';
 import { BookResolver } from './services/BookResolver';
-import { DatepickerModule, ModalModule } from 'ngx-bootstrap';
+import { AlertModule, DatepickerModule, ModalModule } from 'ngx-bootstrap';
 import { BookEditComponent } from './book-edit/book-edit.component';
 import { NgStringPipesModule } from 'angular-pipes';
 import { NonAsciPipe } from './pipes/non-asci.pipe';
@@ -39,7 +39,8 @@ import { CustomFormsModule } from 'ng2-validation';
     AppRoutingModule,
     ModalModule.forRoot(),
     DatepickerModule.forRoot(),
-    NgStringPipesModule
+    NgStringPipesModule,
+    AlertModule.forRoot(),
   ],
   providers: [BookService, BookResolver],
   bootstrap: [AppComponent]

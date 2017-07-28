@@ -50,7 +50,7 @@ import { CapitalizePipe } from 'angular-pipes/src/string/capitalize.pipe';
       </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success" [disabled]="!form.valid">Update</button>
+        <button class="btn btn-success" [disabled]="!form.valid" (click)="onSubmit()">Update</button>
       <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">Close</button>
 
     </div>
@@ -81,6 +81,12 @@ export class BookEditComponent implements OnInit {
   onSubmit() {
     console.log(this.form.value);
     console.log(this.form.valid);
+    if (this.form.valid) {
+      this.bookService.updateBookValues(this.form.value, this.index);
+      alert('Book updated');
+    } else {
+      alert('Failed to updated');
+    }
     this.bsModalRef.hide();
   }
   inValid(controlName: string) {

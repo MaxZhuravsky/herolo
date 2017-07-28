@@ -13,15 +13,22 @@ import { BookEditComponent } from '../book-edit/book-edit.component';
 export class BookListComponent implements OnInit, OnDestroy {
   public books: Book[];
   bsModalRef: BsModalRef;
+  public alerts: any = [];
+  private isUpdated;
   private booksSubscription: Subscription;
   constructor(private bookService: BookService, private modalService: BsModalService) { }
 
   ngOnInit() {
+    this.isUpdated = false;
     this.booksSubscription = this.bookService.book$.subscribe(this.onBooksUpdate.bind(this))
   }
 
   onBooksUpdate(books: Book[]) {
     this.books = books;
+    if (this.isUpdated) {
+      this.add();
+    }
+    this.isUpdated = true;
   }
   openModal(index) {
     this.bsModalRef = this.modalService.show(BookEditComponent);
@@ -31,12 +38,20 @@ export class BookListComponent implements OnInit, OnDestroy {
     component.flush();
   }
   test(book: Book) {
-    let ascii = /^[A-Za-z0-9 ]*$/;
+    const ascii = /^[A-Za-z0-9 ]*$/;
     if (!ascii.test(book.title)) {
       console.log('found non asci')
     }
      book.title = book.title.replace(/[^a-zA-Z0-9 ]/g, '');
     console.log(book.title);
+  }
+
+  public add(): void {
+    this.alerts.push({
+      type: 'info',
+      msg: `Book updated successfully`,
+      timeout: 3000
+    });
   }
 
   ngOnDestroy(): void {
