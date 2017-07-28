@@ -16,6 +16,7 @@ import { DatepickerModule, ModalModule } from 'ngx-bootstrap';
 import { BookEditComponent } from './book-edit/book-edit.component';
 import { NgStringPipesModule } from 'angular-pipes';
 import { NonAsciPipe } from './pipes/non-asci.pipe';
+import { CustomFormsModule } from 'ng2-validation';
 
 @NgModule({
   declarations: [
