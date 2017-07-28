@@ -22,7 +22,10 @@ import { CapitalizePipe } from 'angular-pipes/src/string/capitalize.pipe';
             }">
             <label class="col-form-label mr-3" for="title">Title</label>
             <input class="form-control p-2" id="title" formControlName="title">
-            <div class="form-control-feedback" *ngIf="isTouched('title')">Title is required</div>
+            <div class="form-control-feedback" *ngIf="isTouched('title')">
+              <p *ngIf="form.controls['title'].errors.required">Title is required!</p>
+              <p *ngIf="form.controls['title'].errors.titleIsForbidden">Title already exists! </p>
+            </div>
 
           </div>
           <div class="form-group p-3" [ngClass]="{
@@ -33,7 +36,7 @@ import { CapitalizePipe } from 'angular-pipes/src/string/capitalize.pipe';
             <input class="form-control p-2" id="date" placeholder="1990/1/1" formControlName="date">
             <small class="form-text text-muted">ISO date - 1990/1/1</small>
             <div class="form-control-feedback" *ngIf="isTouched('date')">
-              <p *ngIf="form.controls['date'].errors.required">Date is required</p>
+              <p *ngIf="form.controls['date'].errors.required">Date is required!</p>
               <p *ngIf="form.controls['date'].errors.dateISO">Date format: YYYY/MM/DD </p>
             </div>
           </div>
@@ -43,7 +46,7 @@ import { CapitalizePipe } from 'angular-pipes/src/string/capitalize.pipe';
             }">
             <label class="col-form-label mr-3 ml-1" for="author">Author</label>
             <input class="form-control p-2" id="author" formControlName="author">
-              <div class="form-control-feedback" *ngIf="isTouched('author')">Author is required</div>
+              <div class="form-control-feedback" *ngIf="isTouched('author')">Author is required!</div>
             </div>
 
 
@@ -73,7 +76,7 @@ export class BookEditComponent implements OnInit {
   }
   createForm() {
     this.form = this.fb.group({
-      title: ['', Validators.required],
+      title: ['', [Validators.required, this.forbiddenTitles.bind(this)]],
       date: ['', [Validators.required, CustomValidators.dateISO]],
       author: ['', Validators.required]
     });
@@ -101,9 +104,9 @@ export class BookEditComponent implements OnInit {
   }
   forbiddenTitles(control: FormControl): { [s: string]: boolean} {
       if (this.bookService.TitlExist(control.value)) {
-
+          return {'titleIsForbidden': true}
       }
-
+      return null; // success
     }
 
 
