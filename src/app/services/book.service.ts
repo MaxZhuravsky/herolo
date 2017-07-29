@@ -11,13 +11,11 @@ import { CapitalizePipe } from 'angular-pipes/src/string/capitalize.pipe';
 
 @Injectable()
 export class BookService {
-  constructor(private httpService: Http) {
-  }
-
   private _BookSource = new BehaviorSubject<Book[]>(null);
 
   book$ = this._BookSource.asObservable();
-
+  constructor(private httpService: Http) {
+  }
   get BookSource(): Book[] {
     return this._BookSource.getValue();
   }
