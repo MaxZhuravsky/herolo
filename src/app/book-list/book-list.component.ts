@@ -15,6 +15,7 @@ import { ConfirmComponent } from '../confirm/confirm.component';
 export class BookListComponent implements OnInit, OnDestroy {
   public books: Book[];
   bsModalRef: BsModalRef;
+  query: string;
   public alerts: any = [];
   private isUpdated;
   private booksSubscription: Subscription;
@@ -41,15 +42,6 @@ export class BookListComponent implements OnInit, OnDestroy {
     component.addMode = false;
     component.flush();
   }
-  test(book: Book) {
-    const ascii = /^[A-Za-z0-9 ]*$/;
-    if (!ascii.test(book.title)) {
-      console.log('found non asci')
-    }
-     book.title = book.title.replace(/[^a-zA-Z0-9 ]/g, '');
-    console.log(book.title);
-  }
-
   public addAlert(msg: string): void {
     this.alerts.push({
       type: 'success',

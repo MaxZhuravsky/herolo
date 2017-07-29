@@ -22,6 +22,7 @@ import { CapitalizePipe } from 'angular-pipes/src/string/capitalize.pipe';
             }">
             <label class="col-form-label mr-3" for="title">Title</label>
             <input class="form-control p-2" id="title" formControlName="title">
+            <small class="form-text text-muted">Title must be unique</small>
             <div class="form-control-feedback" *ngIf="isTouched('title')">
               <p *ngIf="form.controls['title'].errors.required">Title is required!</p>
               <p *ngIf="form.controls['title'].errors.titleIsForbidden">Title already exists! </p>
@@ -78,7 +79,6 @@ export class BookEditComponent implements OnInit {
     this.createForm();
     this.form.valueChanges.subscribe(() => {
       this.cd.detectChanges();
-      console.log(this.form.controls['title'].errors);
     });
     this.form.controls['title'].statusChanges.subscribe(() => {
       this.form.controls['title'].setValidators([Validators.required, this.forbiddenTitles.bind(this)])

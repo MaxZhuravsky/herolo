@@ -6,7 +6,6 @@ import { BookResolver } from './services/BookResolver';
 
 const routes: Routes = [
   {path: '', redirectTo: 'books', pathMatch: 'full'},
-  /*{path: 'home', component: HomeComponent, pathMatch: 'full'},*/
   {path: 'books', component: BooksComponent, resolve: [BookResolver]},
 ];
 

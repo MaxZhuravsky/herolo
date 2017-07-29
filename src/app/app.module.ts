@@ -9,7 +9,7 @@ import { BooksComponent } from './books/books.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BookService } from './services/book.service';
 import { BookResolver } from './services/BookResolver';
 import { AlertModule, DatepickerModule, ModalModule } from 'ngx-bootstrap';
@@ -18,6 +18,7 @@ import { NgStringPipesModule } from 'angular-pipes';
 import { NonAsciPipe } from './pipes/non-asci.pipe';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { ConfirmComponent } from './confirm/confirm.component';
+import { SearchPipe } from './pipes/search.pipe';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ConfirmComponent } from './confirm/confirm.component';
     BooksComponent,
     BookEditComponent,
     NonAsciPipe,
-    ConfirmComponent
+    ConfirmComponent,
+    SearchPipe
   ],
   entryComponents: [
     BookEditComponent,
@@ -39,6 +41,7 @@ import { ConfirmComponent } from './confirm/confirm.component';
     BrowserAnimationsModule,
     HttpModule,
     ReactiveFormsModule,
+    FormsModule,
     AppRoutingModule,
     ModalModule.forRoot(),
     DatepickerModule.forRoot(),
