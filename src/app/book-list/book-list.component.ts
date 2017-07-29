@@ -29,7 +29,7 @@ export class BookListComponent implements OnInit, OnDestroy {
   onBooksUpdate(books: Book[]) {
     this.books = books;
     if (this.isUpdated) {
-      this.addAlert();
+      this.addAlert('Book updated successfully');
     }
     this.isUpdated = true;
   }
@@ -49,21 +49,24 @@ export class BookListComponent implements OnInit, OnDestroy {
     console.log(book.title);
   }
 
-  public addAlert(): void {
+  public addAlert(msg: string): void {
     this.alerts.push({
-      type: 'info',
-      msg: `Book updated successfully`,
+      type: 'success',
+      msg: msg,
       timeout: 3000
     });
   }
   remove(index: number) {
+    this.isUpdated = false;
     this.dialogService.addDialog(ConfirmComponent, {})
       .subscribe((isConfirmed) => {
         // We get dialog result
         if (isConfirmed) {
           this.bookService.remove(index);
+          this.addAlert('Book removed successfully');
         }
       });
+    this.isUpdated = true;
   }
 
   ngOnDestroy(): void {

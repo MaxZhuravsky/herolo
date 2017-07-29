@@ -1,5 +1,5 @@
 <div id="scrolling" style="max-height: 70vh" class="container">
-  <table  class="table table-bordered" >
+  <!--<table  class="table table-bordered" >
     <tr *ngFor="let item of books; let i = index"  >
 
     </tr>
@@ -15,7 +15,24 @@
       <td ><button class="btn btn-info" (click)="remove(i)"> Delete</button></td>
     </tr>
     </tbody>
-  </table>
+  </table>-->
+  <div class="row">
+
+    <div class="col-3 mr-4" *ngFor="let item of books; let i = index">
+      <div class="card" style="width: 20rem;">
+        <img class="card-img-top" [src]="item?.link" alt="No image" height="180">
+        <app-book-item [book]="item" [index]="i"></app-book-item>
+        <div class="card-footer">
+          <div class="d-flex justify-content-center">
+            <button class="btn btn-primary mx-auto w-50" (click)="openModal(i)">Edit</button>
+            <button class="btn btn-danger mx-auto w-50" (click)="remove(i)">Delete</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
 </div>
 
 <div *ngFor="let alert of alerts" style="z-index: 999">

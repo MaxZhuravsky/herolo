@@ -48,6 +48,11 @@ import { CapitalizePipe } from 'angular-pipes/src/string/capitalize.pipe';
             <input class="form-control p-2" id="author" formControlName="author">
               <div class="form-control-feedback" *ngIf="isTouched('author')">Author is required!</div>
             </div>
+        <div class="form-group p-3" >
+          <label class="col-form-label mr-3 ml-1" for="link">Link</label>
+          <input class="form-control p-2" id="link" formControlName="link">
+          <small class="form-text text-muted">Link to JPG, Optional!</small>
+        </div>
 
 
       </form>
@@ -72,13 +77,18 @@ export class BookEditComponent implements OnInit {
     this.createForm();
     this.form.valueChanges.subscribe(() => {
       this.cd.detectChanges();
-    })
+      console.log(this.form.controls['title'].errors);
+    });
+    this.form.controls['title'].statusChanges.subscribe(() => {
+      this.form.controls['title'].setValidators([Validators.required, this.forbiddenTitles.bind(this)])
+    });
   }
   createForm() {
     this.form = this.fb.group({
-      title: ['', [Validators.required, this.forbiddenTitles.bind(this)]],
+      title: ['', [Validators.required]],
       date: ['', [Validators.required, CustomValidators.dateISO]],
-      author: ['', Validators.required]
+      author: ['', Validators.required],
+      link: ['']
     });
   }
   onSubmit() {
@@ -113,8 +123,8 @@ export class BookEditComponent implements OnInit {
   flush() {
     this.book.title = new NonAsciPipe().transform(this.book.title);
     this.book.title = new CapitalizePipe().transform(this.book.title);
-    this.form.reset();
-    this.form.setValue(this.book);
+    this.form.reset(this.book);
     this.cd.detectChanges();
+
   }
 }
