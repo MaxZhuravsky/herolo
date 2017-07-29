@@ -1,10 +1,10 @@
 <div class="input-group">
-  <span class="input-group-addon" id="basic-addon1">Search</span>
+  <span class="input-group-addon" id="basic-addon1">Filter</span>
   <input class="form-control" autofocus="autofocus" placeholder="By author or title" [(ngModel)]="query" aria-describedby="basic-addon1">
 </div>
 <div id="scrolling" style="max-height: 70vh" class="container">
   <div class="row">
-    <div class="col-3 mx-4" *ngFor="let item of books | search:'title,author':query; let i = index">
+    <div class="col-3 mx-4" *ngFor="let item of books | filter:'title,author':query; let i = index">
       <div class="card card-outline-secondary p-1 " style="width: 20rem;">
         <img class="card-img-top" [src]="item?.link" alt="No image" height="180">
         <app-book-item [book]="item" [index]="i"></app-book-item>

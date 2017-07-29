@@ -59,7 +59,6 @@ export class BookListComponent implements OnInit, OnDestroy {
           this.addAlert('Book removed successfully');
         }
       });
-    this.isUpdated = true;
   }
   AddNewBook() {
     this.bsModalRef = this.modalService.show(BookEditComponent);
