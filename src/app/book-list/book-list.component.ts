@@ -19,8 +19,10 @@ export class BookListComponent implements OnInit, OnDestroy {
   public alerts: any = [];
   private isUpdated;
   private booksSubscription: Subscription;
+
   constructor(private bookService: BookService, private modalService: BsModalService,
-              private dialogService: DialogService) { }
+              private dialogService: DialogService) {
+  }
 
   ngOnInit() {
     this.isUpdated = false;
@@ -34,6 +36,7 @@ export class BookListComponent implements OnInit, OnDestroy {
     }
     this.isUpdated = true;
   }
+
   openModal(index) {
     this.bsModalRef = this.modalService.show(BookEditComponent);
     const component = <BookEditComponent>this.bsModalRef.content;
@@ -42,6 +45,7 @@ export class BookListComponent implements OnInit, OnDestroy {
     component.addMode = false;
     component.flush();
   }
+
   public addAlert(msg: string): void {
     this.alerts.push({
       type: 'success',
@@ -49,6 +53,7 @@ export class BookListComponent implements OnInit, OnDestroy {
       timeout: 3000
     });
   }
+
   remove(index: number) {
     this.isUpdated = false;
     this.dialogService.addDialog(ConfirmComponent, {})
@@ -60,6 +65,7 @@ export class BookListComponent implements OnInit, OnDestroy {
         }
       });
   }
+
   AddNewBook() {
     this.bsModalRef = this.modalService.show(BookEditComponent);
     const component = <BookEditComponent>this.bsModalRef.content;

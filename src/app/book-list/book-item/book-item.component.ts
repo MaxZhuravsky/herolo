@@ -10,7 +10,9 @@ export class BookItemComponent implements OnInit {
 
   @Input() book: Book;
   @Input() index: number;
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit() {
   }

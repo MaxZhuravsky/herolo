@@ -5,6 +5,7 @@ export interface ConfirmModel {
   title: string;
   message: string;
 }
+
 @Component({
   template: `<div class="modal-dialog" style="width: 15vw">
                 <div class="modal-content">
@@ -26,11 +27,14 @@ export interface ConfirmModel {
 export class ConfirmComponent extends DialogComponent<ConfirmModel, boolean> implements ConfirmModel, OnInit {
   title: string;
   message: string;
+
   constructor(dialogService: DialogService) {
     super(dialogService);
   }
+
   ngOnInit() {
   }
+
   confirm() {
     // we set dialog result as true on click on confirm button,
     // then we can get dialog result from caller code

@@ -11,26 +11,64 @@ import { CapitalizePipe } from 'angular-pipes/src/string/capitalize.pipe';
 
 @Injectable()
 export class BookService {
-  private _BookSource = new BehaviorSubject<Book[]>(null);
-  book$ = this._BookSource.asObservable();
   constructor(private httpService: Http) {
   }
-  updateBooks(books: Book[]) {
-    this._BookSource.next(books);
-  }
+
+  private _BookSource = new BehaviorSubject<Book[]>(null);
+
+  book$ = this._BookSource.asObservable();
+
   get BookSource(): Book[] {
     return this._BookSource.getValue();
   }
+
+  updateBooks(books: Book[]) {
+    this._BookSource.next(books);
+  }
+
   fetchBooks() {
     return this.httpService.get('assets/books.mock.json')
       .map(this.extractData.bind(this))
       .catch(this.handleError);
   }
+
+  TitlExist(title: string) {
+    const books = this.BookSource;
+    for (let i = 0; i < books.length; i++) {
+      const book = books[i];
+      book.title = new NonAsciPipe().transform(book.title);
+      book.title = new CapitalizePipe().transform(book.title);
+      if (book.title.toLowerCase() === title.toLowerCase()) {
+        return true
+      }
+    }
+    return false;
+  }
+
+  addBook(book: Book) {
+    const books = this.BookSource;
+    books.push(book);
+    this.updateBooks(books);
+  }
+
+  remove(index: number) {
+    const books = this.BookSource;
+    books.splice(index, 1);
+    this.updateBooks(books);
+  }
+
+  updateBookValues(book: Book, index: number) {
+    const books = this.BookSource;
+    books[index] = book;
+    this.updateBooks(books);
+  }
+
   private extractData(res: Response) {
     const body: Book[] = res.json();
     this.updateBooks(body);
     return body || {};
   }
+
   private handleError(error: Response | any) {
     // TODO Add logging
     let errMsg: string;
@@ -42,34 +80,5 @@ export class BookService {
     }
     console.error(errMsg);
     return Observable.throw(errMsg);
-  }
-
-  TitlExist(title: string) {
-    const books = this.BookSource;
-    for (let i = 0 ; i < books.length; i++) {
-      const book = books[i];
-      book.title = new NonAsciPipe().transform(book.title);
-      book.title = new CapitalizePipe().transform(book.title);
-      if (book.title.toLowerCase() === title.toLowerCase()) {
-        return true
-      }
-    }
-      return false;
-  }
-
-  addBook(book: Book) {
-    const books = this.BookSource;
-    books.push(book);
-    this.updateBooks(books);
-  }
-  remove(index: number) {
-    const books = this.BookSource;
-    books.splice(index, 1);
-    this.updateBooks(books);
-  }
-  updateBookValues(book: Book, index: number) {
-    const books = this.BookSource;
-    books[index] = book;
-    this.updateBooks(books);
   }
 }
