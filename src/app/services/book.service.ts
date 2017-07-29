@@ -6,6 +6,8 @@ import 'rxjs/add/observable/throw';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Book } from '../models/Book';
 import { Observable } from 'rxjs/Observable';
+import { NonAsciPipe } from '../pipes/non-asci.pipe';
+import { CapitalizePipe } from 'angular-pipes/src/string/capitalize.pipe';
 
 @Injectable()
 export class BookService {
@@ -45,11 +47,20 @@ export class BookService {
   TitlExist(title: string) {
     const books = this.BookSource;
     for (let i = 0 ; i < books.length; i++) {
-      if (books[i].title === title) {
+      const book = books[i];
+      book.title = new NonAsciPipe().transform(book.title);
+      book.title = new CapitalizePipe().transform(book.title);
+      if (book.title.toLowerCase() === title.toLowerCase()) {
         return true
       }
     }
       return false;
+  }
+
+  addBook(book: Book) {
+    const books = this.BookSource;
+    books.push(book);
+    this.updateBooks(books);
   }
   remove(index: number) {
     const books = this.BookSource;

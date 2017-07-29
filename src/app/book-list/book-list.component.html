@@ -18,8 +18,8 @@
   </table>-->
   <div class="row">
 
-    <div class="col-3 mr-4" *ngFor="let item of books; let i = index">
-      <div class="card" style="width: 20rem;">
+    <div class="col-3 mx-4" *ngFor="let item of books; let i = index">
+      <div class="card card-outline-secondary p-1 " style="width: 20rem;">
         <img class="card-img-top" [src]="item?.link" alt="No image" height="180">
         <app-book-item [book]="item" [index]="i"></app-book-item>
         <div class="card-footer">
@@ -34,7 +34,9 @@
 
   </div>
 </div>
-
-<div *ngFor="let alert of alerts" style="z-index: 999">
+<div>
+  <button class="btn btn-success" style="float: right" (click)="AddNewBook()">Add New Book</button>
+</div>
+<div class="mx-auto w-50" *ngFor="let alert of alerts" style="z-index: 999">
   <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout">{{ alert.msg }}</alert>
 </div>

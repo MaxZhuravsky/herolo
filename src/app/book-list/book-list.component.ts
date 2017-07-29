@@ -38,6 +38,7 @@ export class BookListComponent implements OnInit, OnDestroy {
     const component = <BookEditComponent>this.bsModalRef.content;
     component.book = this.books[index];
     component.index = index;
+    component.addMode = false;
     component.flush();
   }
   test(book: Book) {
@@ -67,6 +68,12 @@ export class BookListComponent implements OnInit, OnDestroy {
         }
       });
     this.isUpdated = true;
+  }
+  AddNewBook() {
+    this.bsModalRef = this.modalService.show(BookEditComponent);
+    const component = <BookEditComponent>this.bsModalRef.content;
+    component.addMode = true;
+    component.flush();
   }
 
   ngOnDestroy(): void {

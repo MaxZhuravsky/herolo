@@ -58,7 +58,8 @@ import { CapitalizePipe } from 'angular-pipes/src/string/capitalize.pipe';
       </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success" [disabled]="!form.valid" (click)="onSubmit()">Update</button>
+        <button class="btn btn-success" *ngIf="!addMode" [disabled]="!form.valid" (click)="onSubmit()">Update</button>
+        <button class="btn btn-success" *ngIf="addMode" [disabled]="!form.valid" (click)="onSubmit()">Add</button>
       <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">Close</button>
 
     </div>
@@ -92,13 +93,11 @@ export class BookEditComponent implements OnInit {
     });
   }
   onSubmit() {
-    console.log(this.form.value);
-    console.log(this.form.valid);
-    if (this.form.valid) {
+    if (this.form.valid && !this.addMode) {
       this.bookService.updateBookValues(this.form.value, this.index);
-      alert('Book updated');
-    } else {
-      alert('Failed to updated');
+    }
+    if (this.form.valid && this.addMode) {
+      this.bookService.addBook(this.form.value);
     }
     this.bsModalRef.hide();
   }
@@ -121,10 +120,11 @@ export class BookEditComponent implements OnInit {
 
 
   flush() {
-    this.book.title = new NonAsciPipe().transform(this.book.title);
-    this.book.title = new CapitalizePipe().transform(this.book.title);
-    this.form.reset(this.book);
+    if (!this.addMode) {
+      this.book.title = new NonAsciPipe().transform(this.book.title);
+      this.book.title = new CapitalizePipe().transform(this.book.title);
+      this.form.reset(this.book);
+    }
     this.cd.detectChanges();
-
   }
 }
