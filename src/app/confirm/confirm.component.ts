@@ -35,6 +35,7 @@ export class ConfirmComponent extends DialogComponent<ConfirmModel, boolean> imp
   ngOnInit() {
   }
 
+  // noinspection JSUnusedGlobalSymbols
   confirm() {
     // we set dialog result as true on click on confirm button,
     // then we can get dialog result from caller code

@@ -7,6 +7,10 @@ import { CustomValidators } from 'ng2-validation';
 import { NonAsciPipe } from '../pipes/non-asci.pipe';
 import { CapitalizePipe } from 'angular-pipes/src/string/capitalize.pipe';
 
+// noinspection Annotator
+// noinspection Annotator
+// noinspection Annotator
+// noinspection Annotator
 @Component({
   selector: 'app-book-edit',
   template: `
