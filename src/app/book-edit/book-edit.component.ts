@@ -21,7 +21,7 @@ import { CapitalizePipe } from 'angular-pipes/src/string/capitalize.pipe';
               'has-success': isValid('title')
             }">
             <label class="col-form-label mr-3" for="title">Title</label>
-            <input class="form-control p-2" id="title" formControlName="title">
+            <input #inp class="form-control p-2" autofocus="autofocus" id="title" formControlName="title">
             <small class="form-text text-muted">Title must be unique</small>
             <div class="form-control-feedback" *ngIf="isTouched('title')">
               <p *ngIf="form.controls['title'].errors.required">Title is required!</p>
@@ -59,8 +59,14 @@ import { CapitalizePipe } from 'angular-pipes/src/string/capitalize.pipe';
       </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success" *ngIf="!addMode" [disabled]="!form.valid" (click)="onSubmit()">Update</button>
-        <button class="btn btn-success" *ngIf="addMode" [disabled]="!form.valid" (click)="onSubmit()">Add</button>
+        <button class="btn btn-success" *ngIf="!addMode"
+                [disabled]="!form.valid"
+                (click)="onSubmit()"
+                (keyup.enter)="onSubmit()">Update</button>
+        <button class="btn btn-success" *ngIf="addMode"
+                [disabled]="!form.valid"
+                (click)="onSubmit()"
+                (keyup.enter)="onSubmit()">Add</button>
       <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">Close</button>
 
     </div>
