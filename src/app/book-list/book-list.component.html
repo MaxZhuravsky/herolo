@@ -6,7 +6,7 @@
   <div class="row">
     <div class="col-3 mx-4" *ngFor="let item of books | filter:'title,author':query; let i = index">
       <div class="card card-outline-secondary p-1 " style="width: 20rem;">
-        <img class="card-img-top" [src]="item?.link" alt="No image" height="180">
+        <img class="card-img-top img-responsive " [src]="item?.link" alt="No image" style="height: 350px" >
         <app-book-item [book]="item" [index]="i"></app-book-item>
         <div class="card-footer">
           <div class="d-flex justify-content-center">
