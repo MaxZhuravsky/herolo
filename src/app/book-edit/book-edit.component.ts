@@ -7,6 +7,10 @@ import { CustomValidators } from 'ng2-validation';
 import { NonAsciPipe } from '../pipes/non-asci.pipe';
 import { CapitalizePipe } from 'angular-pipes/src/string/capitalize.pipe';
 
+// noinspection Annotator
+// noinspection Annotator
+// noinspection Annotator
+// noinspection Annotator
 @Component({
   selector: 'app-book-edit',
   template: `
@@ -16,40 +20,40 @@ import { CapitalizePipe } from 'angular-pipes/src/string/capitalize.pipe';
     </div>
     <div class="modal-body">
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <div class="form-group p-3" [ngClass]="{
+        <div class="form-group p-3" [ngClass]="{
               'has-danger': inValid('title'),
               'has-success': isValid('title')
             }">
-            <label class="col-form-label mr-3" for="title">Title</label>
-            <input #inp class="form-control p-2" autofocus="autofocus" id="title" formControlName="title">
-            <small class="form-text text-muted">Title must be unique</small>
-            <div class="form-control-feedback" *ngIf="isTouched('title')">
-              <p *ngIf="form.controls['title'].errors.required">Title is required!</p>
-              <p *ngIf="form.controls['title'].errors.titleIsForbidden">Title already exists! </p>
-            </div>
-
+          <label class="col-form-label mr-3" for="title">Title</label>
+          <input #inp class="form-control p-2" autofocus="autofocus" id="title" formControlName="title">
+          <small class="form-text text-muted">Title must be unique</small>
+          <div class="form-control-feedback" *ngIf="isTouched('title')">
+            <p *ngIf="form.controls['title'].errors.required">Title is required!</p>
+            <p *ngIf="form.controls['title'].errors.titleIsForbidden">Title already exists! </p>
           </div>
-          <div class="form-group p-3" [ngClass]="{
+
+        </div>
+        <div class="form-group p-3" [ngClass]="{
               'has-danger': inValid('date'),
               'has-success': isValid('date')
             }">
-            <label class="col-form-label mr-3 ml-1" for="date">Date</label>
-            <input class="form-control p-2" id="date" placeholder="1990/1/1" formControlName="date">
-            <small class="form-text text-muted">ISO date - 1990/1/1</small>
-            <div class="form-control-feedback" *ngIf="isTouched('date')">
-              <p *ngIf="form.controls['date'].errors.required">Date is required!</p>
-              <p *ngIf="form.controls['date'].errors.dateISO">Date format: YYYY/MM/DD </p>
-            </div>
+          <label class="col-form-label mr-3 ml-1" for="date">Date</label>
+          <input class="form-control p-2" id="date" placeholder="1990/1/1" formControlName="date">
+          <small class="form-text text-muted">ISO date - 1990/1/1</small>
+          <div class="form-control-feedback" *ngIf="isTouched('date')">
+            <p *ngIf="form.controls['date'].errors.required">Date is required!</p>
+            <p *ngIf="form.controls['date'].errors.dateISO">Date format: YYYY/MM/DD </p>
           </div>
-            <div class="form-group p-3" [ngClass]="{
+        </div>
+        <div class="form-group p-3" [ngClass]="{
               'has-danger': inValid('author'),
               'has-success': isValid('author')
             }">
-            <label class="col-form-label mr-3 ml-1" for="author">Author</label>
-            <input class="form-control p-2" id="author" formControlName="author">
-              <div class="form-control-feedback" *ngIf="isTouched('author')">Author is required!</div>
-            </div>
-        <div class="form-group p-3" >
+          <label class="col-form-label mr-3 ml-1" for="author">Author</label>
+          <input class="form-control p-2" id="author" formControlName="author">
+          <div class="form-control-feedback" *ngIf="isTouched('author')">Author is required!</div>
+        </div>
+        <div class="form-group p-3">
           <label class="col-form-label mr-3 ml-1" for="link">Link</label>
           <input class="form-control p-2" id="link" formControlName="link">
           <small class="form-text text-muted">Link to JPG, Optional!</small>
@@ -59,14 +63,16 @@ import { CapitalizePipe } from 'angular-pipes/src/string/capitalize.pipe';
       </form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success" *ngIf="!addMode"
-                [disabled]="!form.valid"
-                (click)="onSubmit()"
-                (keyup.enter)="onSubmit()">Update</button>
-        <button class="btn btn-success" *ngIf="addMode"
-                [disabled]="!form.valid"
-                (click)="onSubmit()"
-                (keyup.enter)="onSubmit()">Add</button>
+      <button class="btn btn-success" *ngIf="!addMode"
+              [disabled]="!form.valid"
+              (click)="onSubmit()"
+              (keyup.enter)="onSubmit()">Update
+      </button>
+      <button class="btn btn-success" *ngIf="addMode"
+              [disabled]="!form.valid"
+              (click)="onSubmit()"
+              (keyup.enter)="onSubmit()">Add
+      </button>
       <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">Close</button>
 
     </div>
@@ -78,8 +84,10 @@ export class BookEditComponent implements OnInit {
   public index: number;
   public addMode = false;
   form: FormGroup;
+
   constructor(private bookService: BookService, private fb: FormBuilder, public bsModalRef: BsModalRef,
-              private cd: ChangeDetectorRef) { }
+              private cd: ChangeDetectorRef) {
+  }
 
   ngOnInit() {
     this.createForm();
@@ -90,6 +98,7 @@ export class BookEditComponent implements OnInit {
       this.form.controls['title'].setValidators([Validators.required, this.forbiddenTitles.bind(this)])
     });
   }
+
   createForm() {
     this.form = this.fb.group({
       title: ['', [Validators.required]],
@@ -98,6 +107,7 @@ export class BookEditComponent implements OnInit {
       link: ['']
     });
   }
+
   onSubmit() {
     if (this.form.valid && !this.addMode) {
       this.bookService.updateBookValues(this.form.value, this.index);
@@ -107,22 +117,26 @@ export class BookEditComponent implements OnInit {
     }
     this.bsModalRef.hide();
   }
+
   inValid(controlName: string) {
     return this.form.controls[controlName].invalid && this.form.controls[controlName].dirty
   }
+
   isValid(controlName: string) {
     return this.form.controls[controlName].valid && this.form.controls[controlName].dirty
   }
+
   isTouched(controlName: string) {
     return this.form.controls[controlName].errors &&
       (this.form.controls[controlName].dirty || this.form.controls[controlName].touched)
   }
-  forbiddenTitles(control: FormControl): { [s: string]: boolean} {
-      if (this.bookService.TitlExist(control.value)) {
-          return {'titleIsForbidden': true}
-      }
-      return null; // success
+
+  forbiddenTitles(control: FormControl): { [s: string]: boolean } {
+    if (this.bookService.TitlExist(control.value)) {
+      return {'titleIsForbidden': true}
     }
+    return null; // success
+  }
 
 
   flush() {

@@ -52,4 +52,5 @@ import { SearchPipe } from './pipes/search.pipe';
   providers: [BookService, BookResolver],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
