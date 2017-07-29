@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { BooksComponent } from './books/books.component';
+import { BookResolver } from './services/BookResolver';
 
 
 const routes: Routes = [
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
-  /*{path: 'home', component: HomeComponent, pathMatch: 'full'},*/
+  {path: '', redirectTo: 'books', pathMatch: 'full'},
+  {path: 'books', component: BooksComponent, resolve: [BookResolver]},
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {
